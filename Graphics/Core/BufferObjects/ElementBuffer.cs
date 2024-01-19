@@ -1,25 +1,25 @@
 ﻿using OpenTK.Graphics.OpenGL4;
 
-namespace Serche.Rendering.Core.BufferObjects
+namespace Serche.Graphics.Core.BufferObjects
 {
-    class ElementBuffer<T> : IDisposable where T : struct
+    class ElementBuffer
     {
-        private readonly int ID;
-        private bool dispose;
+        private readonly int _id;
+        //private bool _dispose;
 
-        public ElementBuffer(List<T> nData, int nSize)
+        public ElementBuffer(float[] nData)
         {
-            GL.GenBuffers(1, out ID);
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ID);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, nSize, nData.ToArray(), BufferUsageHint.StaticDraw);
+            GL.GenBuffers(1, out _id);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _id);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, nData.Length * sizeof(float), nData, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
 
-            dispose = false;
+            //_dispose = false;
         }
 
         public void Bind()
         {
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, ID);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, _id);
         }
 
         public void Unbind()
@@ -27,7 +27,10 @@ namespace Serche.Rendering.Core.BufferObjects
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, 0);
         }
 
-        ~ElementBuffer()
+        public int ID => _id;
+
+        /*
+        ~VertexBuffer()
         {
             Console.WriteLine("Resource leak! Did you forget to call Dispose()?");
         }
@@ -40,11 +43,12 @@ namespace Serche.Rendering.Core.BufferObjects
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!dispose)
+            if (!_dispose)
             {
-                GL.DeleteBuffer(ID);
-                dispose = true;
+                GL.DeleteBuffer(_id);
+                _dispose = true;
             }
         }
+        */
     }
 }

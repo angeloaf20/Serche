@@ -5,16 +5,15 @@ namespace Serche.Graphics.Core.BufferObjects
     class VertexBuffer
     {
         private readonly int _id;
-        private bool dispose;
+        //private bool _dispose;
 
-        public VertexBuffer(List<T> nData, int nSize)
+        public VertexBuffer(float[] nData)
         {
             GL.GenBuffers(1, out _id);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _id);
-            GL.BufferData(BufferTarget.ArrayBuffer, nSize, nData.ToArray(), BufferUsageHint.StaticDraw);
-            GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-
-            dispose = false;
+            Bind();            
+            GL.BufferData(BufferTarget.ArrayBuffer, nData.Length * sizeof(float), nData, BufferUsageHint.StaticDraw);
+            Unbind();
+            //_dispose = false;
         }
 
         public void Bind()
@@ -29,6 +28,7 @@ namespace Serche.Graphics.Core.BufferObjects
 
         public int ID => _id;
 
+        /*
         ~VertexBuffer()
         {
             Console.WriteLine("Resource leak! Did you forget to call Dispose()?");
@@ -42,11 +42,12 @@ namespace Serche.Graphics.Core.BufferObjects
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!dispose)
+            if (!_dispose)
             {
                 GL.DeleteBuffer(_id);
-                dispose = true;
+                _dispose = true;
             }
         }
+        */
     }
 }

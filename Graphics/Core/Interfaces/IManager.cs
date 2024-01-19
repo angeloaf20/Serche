@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Serche.Graphics.Core.Renderer
+namespace Serche.Graphics.Core.Interfaces
 {
-    internal class ModelRenderer
+    internal interface IManager
     {
     }
 }

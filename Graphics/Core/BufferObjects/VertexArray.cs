@@ -2,28 +2,29 @@
 
 namespace Serche.Graphics.Core.BufferObjects
 {
-    class VertexArray : IDisposable
+    class VertexArray
     {
-        private readonly int handle;
-        private bool dispose;
+        private readonly int _handle;
+        //private bool _dispose;
 
-        public VertexArray()
+        public VertexArray(int index, int size, bool normalized, int stride, int offset)
         {
-            GL.GenVertexArrays(1, out handle);
-            dispose = false;
+            GL.GenVertexArrays(1, out _handle);
+            Bind();
+            LinkAttrib(index, size, normalized, stride, offset);
+            Unbind();
+            //_dispose = false;
         }
 
-        public void LinkAttrib(VertexBuffer VB, int index, int size, VertexAttribPointerType type, bool normalized, int stride, int offset)
+        public void LinkAttrib(int index, int size, bool normalized, int stride, int offset)
         {
-            VB.Bind();
-            GL.VertexAttribPointer(index, size, type, normalized, stride, offset);
+            GL.VertexAttribPointer(index, size, VertexAttribPointerType.Float, normalized, stride, offset);
             GL.EnableVertexAttribArray(index);
-            VB.Unbind();
         }
 
         public void Bind()
         {
-            GL.BindVertexArray(handle);
+            GL.BindVertexArray(_handle);
         }
 
         public void Unbind()
@@ -31,6 +32,7 @@ namespace Serche.Graphics.Core.BufferObjects
             GL.BindVertexArray(0);
         }
 
+        /* 
         ~VertexArray()
         {
             Console.WriteLine("Resource leak! Did you forget to call Dispose()?");
@@ -44,11 +46,12 @@ namespace Serche.Graphics.Core.BufferObjects
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!dispose)
+            if (!_dispose)
             {
-                GL.DeleteVertexArray(handle);
-                dispose = true;
+                GL.DeleteVertexArray(_handle);
+                _dispose = true;
             }
         }
+        */
     }
 }
