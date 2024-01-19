@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Assets\**" />
+    <Compile Remove="Geometry\**" />
+    <EmbeddedResource Remove="Assets\**" />
+    <EmbeddedResource Remove="Geometry\**" />
+    <None Remove="Assets\**" />
+    <None Remove="Geometry\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AssimpNet" Version="4.1.0" />
+    <PackageReference Include="OpenTK" Version="4.8.2" />
+    <PackageReference Include="StbImageSharp" Version="2.27.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Gameplay\" />
+    <Folder Include="Audio\" />
+    <Folder Include="Graphics\Core\Lighting\" />
+    <Folder Include="Graphics\Core\Terrain\" />
+    <Folder Include="Graphics\Core\Renderer\" />
+    <Folder Include="ShaderSource\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ShaderSource\fragShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ShaderSource\vertShader.glsl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
