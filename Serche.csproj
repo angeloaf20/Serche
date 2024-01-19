@@ -27,7 +27,6 @@
     <Folder Include="Audio\" />
     <Folder Include="Graphics\Core\Lighting\" />
     <Folder Include="Graphics\Core\Terrain\" />
-    <Folder Include="Graphics\Core\Renderer\" />
     <Folder Include="ShaderSource\" />
   </ItemGroup>
 
